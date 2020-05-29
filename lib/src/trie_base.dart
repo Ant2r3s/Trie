@@ -10,7 +10,7 @@ class Trie {
       _isCaseSensitive = caseSensitivity;
 
   Trie() {
-    _head = new _TrieNode(null);
+    _head = _TrieNode(null);
   }
 
   addWord(String word) {
@@ -18,7 +18,7 @@ class Trie {
   }
 
   Trie.list(this._words) {
-    _head = new _TrieNode(null);
+    _head = _TrieNode(null);
     for (String word in _words) {
       addWord(word);
     }
@@ -29,7 +29,7 @@ class Trie {
   }
 
   _addWordNode(String word, _TrieNode node) {
-    if (word == null || word.length == 0) {
+    if (word == null || word.isEmpty) {
       node.endOfWord = true;
       return;
     }
@@ -57,14 +57,14 @@ class Trie {
     }
 
     node.children.forEach((child) {
-      _collect(new StringBuffer(prefix.toString()), child, words);
+      _collect(StringBuffer(prefix.toString()), child, words);
     });
 
     return words;
   }
 
   List<String> getAllWordsWithPrefix(String prefix) {
-    StringBuffer fullPrefix = new StringBuffer();
+    StringBuffer fullPrefix = StringBuffer();
     return _getAllWordsWithPrefixHelper(prefix, _head, fullPrefix);
   }
 
@@ -73,7 +73,7 @@ class Trie {
     if (prefix.length == 0) {
       String pre = fullPrefix.toString();
       return _collect(
-          new StringBuffer(pre.substring(0, max(pre.length - 1, 0))), node, []);
+          StringBuffer(pre.substring(0, max(pre.length - 1, 0))), node, []);
     }
 
     for (_TrieNode child in node.children) {
@@ -108,7 +108,7 @@ class _TrieNode {
   _addWord(String word) {
     _TrieNode curr = this;
     for (int i = 0; i < word.length; i++) {
-      _TrieNode child = new _TrieNode(word.substring(i, i + 1));
+      _TrieNode child = _TrieNode(word.substring(i, i + 1));
       curr._children.add(child);
       curr = child;
     }
